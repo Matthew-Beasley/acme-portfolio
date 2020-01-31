@@ -1,15 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
+import qs from 'qs';
 import { fetchUser, fetchNotes, fetchVacations, fetchFollowingCompanies } from './api';
 import Header from './Header';
 import Main from './Main';
+import Notes from './Notes';
+import Vacations from './Vacations';
 
 
 function App() {
-  const [user, setUser] = useState({}); //notes, vacations, and followingCompanies
-  const [notes, setNotes] = useState([]); // array
+  const getHash = () => {
+    return qs.parse(window.location.hash.slice(1))
+  }
+
+  const [user, setUser] = useState({}); 
+  const [notes, setNotes] = useState([]);
   const [vacations, setVacations] = useState([]);
   const [followingCompanies, setFollowingCompanies] = useState([]);
+  const [params, setParams] = useState(qs.parse(getHash()));
+
+
+  const changeUser = () => {
+    window.localStorage.removeItem('userId');
+    fetchUser()
+      .then(user => setUser(user));
+  }
+
+
+  useEffect(() => {
+    if (window.location.hash === '') {
+      window.location.hash = 'view=';
+    }
+  },[])
+
+
+  useEffect(() => {
+    window.addEventListener('hashchange', () => {
+      setParams(qs.parse(getHash()));
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
   useEffect(() => {
@@ -32,18 +61,13 @@ function App() {
     }
   }, [user.id])
 
-  
-  const changeUser = () => {
-    window.localStorage.removeItem('userId');
-    fetchUser()
-      .then(user => setUser(user));
-  }
-
 
   return (
     <div className="App">
       <Header user={user} changeUser={changeUser} />
-      <Main notes={notes} vacations={vacations} followingCompanies={followingCompanies} />
+      {params.view === '' && <Main params={params} notes={notes} vacations={vacations} followingCompanies={followingCompanies} />}
+      {params.view === 'notes' && <Notes notes={notes} />}
+      {params.view === 'vacations' && <Vacations vacations={vacations} />} 
     </div>
   );
 }

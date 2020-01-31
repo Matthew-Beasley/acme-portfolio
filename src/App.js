@@ -1,35 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import './App.css';
-
-
-
-const fetchUser = async () => {
-  const API = 'https://acme-users-api-rev.herokuapp.com/api';
-  const storage = window.localStorage;
-  const userId = storage.getItem('userId');
-  if (userId) {
-    try {
-      return (await axios.get(`${API}/users/detail/${userId}`)).data;
-    }
-    catch (ex) {
-      storage.removeItem('userId');
-      return fetchUser();
-    }
-  }
-  const user = (await axios.get(`${API}/users/random`)).data;
-  storage.setItem('userId', user.id);
-  return user;
-};
+import { fetchUser } from './api';
+import Header from './Header';
 
 
 
 function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({}); //notes, vacations, and followingCompanies
+  const [notes, setNotes] = useState([]); // array
+  const [vacations, setVacations] = useState([]);
+  const [followingCompanies, setFollowingCompanies] = useState([]);
 
   useEffect(() => {
     fetchUser()
-      .then(response => setUser({ ...response }))
+      .then(response => setUser(response))
   }, [])
 
   
@@ -37,18 +21,14 @@ function App() {
     console.log(user.id)
     window.localStorage.removeItem('userId');
     fetchUser()
-      .then(response => setUser({ ...response }));
+      .then(response => setUser(response));
   }
   console.log(user)
   
 
   return (
     <div className="App">
-      <header>
-        <img src={user.avatar} alt="" />
-        <h2>Welcome {user.fullName}</h2>
-        <button onClick={() => changeUser()}>Change User</button>
-      </header>
+      <Header user={user} changeUser={changeUser}/>
       
     </div>
   );

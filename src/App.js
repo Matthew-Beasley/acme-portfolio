@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { fetchUser, fetchNotes, fetchVacations, fetchFollowingCompanies } from './api';
 import Header from './Header';
-
+import Main from './Main';
 
 
 function App() {
@@ -24,10 +24,10 @@ function App() {
       Promise.all([fetchNotes(user.id),
       fetchVacations(user.id),
       fetchFollowingCompanies(user.id)])
-        .then(([_notes, _vacations, _followingCompanies]) => {
-          setNotes(_notes.data);
-          setVacations(_vacations.data);
-          setFollowingCompanies(_followingCompanies.data);
+        .then(([pnotes, pvacations, pfollowingCompanies]) => {
+          setNotes(pnotes.data);
+          setVacations(pvacations.data);
+          setFollowingCompanies(pfollowingCompanies.data);
         })
     }
   }, [user.id])
@@ -43,13 +43,7 @@ function App() {
   return (
     <div className="App">
       <Header user={user} changeUser={changeUser} />
-
-      <main>
-        <div>{notes.length} Notes</div>
-        <div>{vacations.length} Vacations</div>
-        <div>Following {followingCompanies.length} Companies</div>
-      </main>
-      
+      <Main notes={notes} vacations={vacations} followingCompanies={followingCompanies} />
     </div>
   );
 }

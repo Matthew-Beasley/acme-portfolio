@@ -1,36 +1,34 @@
-import React from 'react';
 import axios from 'axios';
 const API = 'https://acme-users-api-rev.herokuapp.com/api';
 
 const fetchUser = async () => {
-    
-    const storage = window.localStorage;
-    const userId = storage.getItem('userId');
-    if (userId) {
-        try {
-            return (await axios.get(`${API}/users/detail/${userId}`)).data;
-        }
-        catch (ex) {
-            storage.removeItem('userId');
-            return fetchUser();
-        }
+
+  const storage = window.localStorage;
+  const userId = storage.getItem('userId');
+  if (userId) {
+    try {
+      return (await axios.get(`${API}/users/detail/${userId}`)).data;
     }
-    const user = (await axios.get(`${API}/users/random`)).data;
-    storage.setItem('userId', user.id);
-    return user;
+    catch (ex) {
+      storage.removeItem('userId');
+      return fetchUser();
+    }
+  }
+  const user = (await axios.get(`${API}/users/random`)).data;
+  storage.setItem('userId', user.id);
+  return user;
 };
 
-const fetchNotes = (userId) => {
-    return axios.get(`${API}/users/${userId}/notes`)
-        .then(response => console.log(response))
+const fetchNotes = async (userId) => {
+  return await axios.get(`${API}/users/${userId}/notes`)
 }
 
-const fetchVacations = () => {
-
+const fetchVacations = async (userId) => {
+  return await axios.get(`${API}/users/${userId}/vacations`)
 }
 
-const fetchFollowingCompanies = () => {
-
+const fetchFollowingCompanies = async (userId) => {
+  return await axios.get(`${API}/users/${userId}/followingCompanies`)
 }
 
-export { fetchUser, fetchNotes , fetchVacations, fetchFollowingCompanies };
+export { fetchUser, fetchNotes, fetchVacations, fetchFollowingCompanies };

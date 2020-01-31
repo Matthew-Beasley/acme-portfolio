@@ -12,29 +12,43 @@ function App() {
   const [followingCompanies, setFollowingCompanies] = useState([]);
 
 
-  const fetchData = () => {
+  useEffect(() => {
     fetchUser()
-    .then(response => setUser(response))
-    //.then(user => console.log(user.id))
-  }
+      .then(user => setUser(user));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
 
   useEffect(() => {
-    fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    if (user.id) {
+      Promise.all([fetchNotes(user.id),
+      fetchVacations(user.id),
+      fetchFollowingCompanies(user.id)])
+        .then(([_notes, _vacations, _followingCompanies]) => {
+          setNotes(_notes.data);
+          setVacations(_vacations.data);
+          setFollowingCompanies(_followingCompanies.data);
+        })
+    }
+  }, [user.id])
 
   
   const changeUser = () => {
     window.localStorage.removeItem('userId');
-    fetchData();
+    fetchUser()
+      .then(user => setUser(user));
   }
-  //console.log(user)
-  
+
 
   return (
     <div className="App">
-      <Header user={user} changeUser={changeUser}/>
+      <Header user={user} changeUser={changeUser} />
+
+      <main>
+        <div>{notes.length} Notes</div>
+        <div>{vacations.length} Vacations</div>
+        <div>Following {followingCompanies.length} Companies</div>
+      </main>
       
     </div>
   );

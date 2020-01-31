@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-
+const API = 'https://acme-users-api-rev.herokuapp.com/api';
 
 const fetchUser = async () => {
-    const API = 'https://acme-users-api-rev.herokuapp.com/api';
+    
     const storage = window.localStorage;
     const userId = storage.getItem('userId');
     if (userId) {
@@ -20,4 +20,17 @@ const fetchUser = async () => {
     return user;
 };
 
-export { fetchUser };
+const fetchNotes = (userId) => {
+    return axios.get(`${API}/users/${userId}/notes`)
+        .then(response => console.log(response))
+}
+
+const fetchVacations = () => {
+
+}
+
+const fetchFollowingCompanies = () => {
+
+}
+
+export { fetchUser, fetchNotes , fetchVacations, fetchFollowingCompanies };

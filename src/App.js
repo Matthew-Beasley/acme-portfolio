@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { fetchUser } from './api';
+import { fetchUser, fetchNotes, fetchVacations, fetchFollowingCompanies } from './api';
 import Header from './Header';
 
 
@@ -11,19 +11,25 @@ function App() {
   const [vacations, setVacations] = useState([]);
   const [followingCompanies, setFollowingCompanies] = useState([]);
 
-  useEffect(() => {
+
+  const fetchData = () => {
     fetchUser()
-      .then(response => setUser(response))
+    .then(response => setUser(response))
+    //.then(user => console.log(user.id))
+  }
+
+
+  useEffect(() => {
+    fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   
   const changeUser = () => {
-    console.log(user.id)
     window.localStorage.removeItem('userId');
-    fetchUser()
-      .then(response => setUser(response));
+    fetchData();
   }
-  console.log(user)
+  //console.log(user)
   
 
   return (

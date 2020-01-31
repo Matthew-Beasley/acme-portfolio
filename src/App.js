@@ -29,13 +29,25 @@ function App() {
 
   useEffect(() => {
     fetchUser()
-      .then(response => setUser(response))
-  },[])
-console.log(user)
+      .then(response => setUser({ ...response }))
+  }, [])
+
+  
+  const changeUser = () => {
+    console.log(user.id)
+    window.localStorage.removeItem('userId');
+    fetchUser()
+      .then(response => setUser({ ...response }));
+  }
+  console.log(user)
+  
+
   return (
     <div className="App">
       <header>
-        <img src={user.avatar} alt=""/>
+        <img src={user.avatar} alt="" />
+        <h2>Welcome {user.fullName}</h2>
+        <button onClick={() => changeUser()}>Change User</button>
       </header>
       
     </div>

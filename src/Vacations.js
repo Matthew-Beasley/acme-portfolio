@@ -15,7 +15,7 @@ const Vacations = ({ vacations }) => {
       <h2>Vacations</h2>
       <ul>
         {vacations.map((vacation, idx) => {
-          return <li>
+          return <li key={idx}>
             <p>{moment(vacation.startDate).format('MM/DD/YYYY')} to {moment(vacation.endDate).format('MM/DD/YYYY')}</p>
             <p>Duration is {diffDates(vacation.startDate, vacation.endDate)} days</p>
           </li>

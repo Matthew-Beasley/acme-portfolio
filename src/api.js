@@ -20,15 +20,19 @@ const fetchUser = async () => {
 };
 
 const fetchNotes = async (userId) => {
-  return await axios.get(`${API}/users/${userId}/notes`)
+  return await axios.get(`${API}/users/${userId}/notes`);
 }
 
 const fetchVacations = async (userId) => {
-  return await axios.get(`${API}/users/${userId}/vacations`)
+  return await axios.get(`${API}/users/${userId}/vacations`);
 }
 
 const fetchFollowingCompanies = async (userId) => {
-  return await axios.get(`${API}/users/${userId}/followingCompanies`)
+  return await axios.get(`${API}/users/${userId}/followingCompanies`);
 }
 
-export { fetchUser, fetchNotes, fetchVacations, fetchFollowingCompanies };
+const fetchCompanies = async () => {
+  return await axios.get(`${API}/companies`);
+}
+
+export { fetchUser, fetchNotes, fetchVacations, fetchFollowingCompanies, fetchCompanies };

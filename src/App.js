@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import qs from 'qs';
 import { fetchUser, fetchNotes, fetchVacations, fetchFollowingCompanies } from './api';
 import Header from './Header';
-import Main from './Main';
+import Circles from './Circles';
 import Notes from './Notes';
 import Vacations from './Vacations';
+import Following from './Following';
 
 
 function App() {
@@ -65,9 +66,10 @@ function App() {
   return (
     <div className="App">
       <Header user={user} changeUser={changeUser} />
-      {params.view === '' && <Main params={params} notes={notes} vacations={vacations} followingCompanies={followingCompanies} />}
+      {params.view === '' && <Circles params={params} notes={notes} vacations={vacations} followingCompanies={followingCompanies} />}
       {params.view === 'notes' && <Notes notes={notes} />}
       {params.view === 'vacations' && <Vacations vacations={vacations} />} 
+      {params.view === 'following' && <Following followingCompanies={followingCompanies}/>}
     </div>
   );
 }

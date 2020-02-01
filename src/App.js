@@ -5,6 +5,7 @@ import Header from './Header';
 import Circles from './Circles';
 import Notes from './Notes';
 import Vacations from './Vacations';
+import ManageVacations from './ManageVacations';
 import Following from './Following';
 
 
@@ -69,7 +70,8 @@ function App() {
       {(!params.view || params.view === '') && <Circles params={params} notes={notes} vacations={vacations} followingCompanies={followingCompanies} />}
       {params.view === 'notes' && <Notes notes={notes} />}
       {params.view === 'vacations' && <Vacations vacations={vacations} />} 
-      {params.view === 'following' && <Following followingCompanies={followingCompanies}/>}
+      {params.view === 'following' && <Following followingCompanies={followingCompanies} />}
+      {params.view === 'managevacations' && <ManageVacations vacations={vacations} />}
     </div>
   );
 }

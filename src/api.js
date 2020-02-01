@@ -35,4 +35,12 @@ const fetchCompanies = async () => {
   return await axios.get(`${API}/companies`);
 }
 
-export { fetchUser, fetchNotes, fetchVacations, fetchFollowingCompanies, fetchCompanies };
+const postVacation = async (userId, startDate, endDate) => {
+  return await axios.post(`${API}/users/${ userId }/vacations`, { startDate: startDate, endDate: endDate } )
+}
+
+const deleteVacation = () => {
+
+}
+
+export { fetchUser, fetchNotes, fetchVacations, fetchFollowingCompanies, fetchCompanies, postVacation, deleteVacation };

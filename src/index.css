@@ -77,3 +77,17 @@ a {
 .vacations > ul > li {
   border-bottom: 1px solid gray;
 }
+
+.following {
+  margin-left: 10rem;
+}
+
+.following > ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.following li {
+  border-bottom: 1px solid gray;
+}

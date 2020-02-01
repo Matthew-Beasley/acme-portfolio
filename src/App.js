@@ -26,13 +26,13 @@ function App() {
       .then(user => setUser(user));
   }
 
-
+/*
   useEffect(() => {
     if (window.location.hash === '') {
       window.location.hash = 'view=';
     }
   },[])
-
+*/
 
   useEffect(() => {
     window.addEventListener('hashchange', () => {
@@ -66,7 +66,7 @@ function App() {
   return (
     <div className="App">
       <Header user={user} changeUser={changeUser} />
-      {params.view === '' && <Circles params={params} notes={notes} vacations={vacations} followingCompanies={followingCompanies} />}
+      {(!params.view || params.view === '') && <Circles params={params} notes={notes} vacations={vacations} followingCompanies={followingCompanies} />}
       {params.view === 'notes' && <Notes notes={notes} />}
       {params.view === 'vacations' && <Vacations vacations={vacations} />} 
       {params.view === 'following' && <Following followingCompanies={followingCompanies}/>}

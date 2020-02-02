@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Route from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import qs from 'qs';
 import { fetchUser, fetchNotes, fetchVacations, fetchFollowingCompanies } from './api';
 import Header from './Header';
@@ -15,7 +15,6 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [vacations, setVacations] = useState([]);
   const [followingCompanies, setFollowingCompanies] = useState([]);
-  const [params, setParams] = useState(qs.parse(getHash()));
 
 
   const changeUser = () => {
@@ -48,7 +47,7 @@ function App() {
   return (
     <div className="App">
       <Header user={user} changeUser={changeUser} />
-      <Route path = '/circles' exact render={() => <Circles params={params} notes={notes} vacations={vacations} followingCompanies={followingCompanies}/>} />
+      <Route path = '/circles' exact render={() => <Circles notes={notes} vacations={vacations} followingCompanies={followingCompanies}/>} />
       <Route path ='/notes' render={() => <Notes notes={notes} /> }/>
       <Route path = '/vacations' render={() => <Vacations vacations={vacations} setVacations={setVacations} user={user} />} />
       <Route path = '/following' render={() => <Following followingCompanies={followingCompanies} />} />

@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = ({ user, changeUser }) => {
   return (
     <header>
-      <a href="#view=" ><img src={user.avatar} alt="" /></a>
+      <Link to="/circles" ><img src={user.avatar} alt="" /></Link>
       <h2>Welcome {user.fullName}</h2>
       <button onClick={() => changeUser()}>Change User</button>
     </header>

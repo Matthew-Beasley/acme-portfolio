@@ -5,7 +5,6 @@ import Header from './Header';
 import Circles from './Circles';
 import Notes from './Notes';
 import Vacations from './Vacations';
-import ManageVacations from './ManageVacations';
 import Following from './Following';
 
 
@@ -27,13 +26,6 @@ function App() {
       .then(user => setUser(user));
   }
 
-/*
-  useEffect(() => {
-    if (window.location.hash === '') {
-      window.location.hash = 'view=';
-    }
-  },[])
-*/
 
   useEffect(() => {
     window.addEventListener('hashchange', () => {
@@ -69,9 +61,8 @@ function App() {
       <Header user={user} changeUser={changeUser} />
       {(!params.view || params.view === '') && <Circles params={params} notes={notes} vacations={vacations} followingCompanies={followingCompanies} />}
       {params.view === 'notes' && <Notes notes={notes} />}
-      {params.view === 'vacations' && <Vacations vacations={vacations} />} 
+      {params.view === 'vacations' && <Vacations vacations={vacations} setVacations={setVacations} user={user} />} 
       {params.view === 'following' && <Following followingCompanies={followingCompanies} />}
-      {params.view === 'managevacations' && <ManageVacations vacations={vacations} />}
     </div>
   );
 }

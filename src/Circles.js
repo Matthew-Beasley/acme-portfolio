@@ -10,7 +10,6 @@ const Circles = ({ notes, vacations, followingCompanies }) => {
       <div className="circles">
         <h3><a href="#view=vacations">Vacations</a></h3>
         <p>You have {vacations.length} Vacations</p>
-        <h4><a href="#view=managevacations">Manage Vacations</a></h4>
       </div>
       <div className="circles">
         <h3><a href="#view=following">Followed Companies</a></h3>

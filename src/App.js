@@ -47,7 +47,7 @@ function App() {
   return (
     <div className="App">
       <Header user={user} changeUser={changeUser} />
-      <Route path = '/circles' exact render={() => <Circles notes={notes} vacations={vacations} followingCompanies={followingCompanies}/>} />
+      <Route path = '/' exact render={() => <Circles notes={notes} vacations={vacations} followingCompanies={followingCompanies}/>} />
       <Route path ='/notes' render={() => <Notes notes={notes} /> }/>
       <Route path = '/vacations' render={() => <Vacations vacations={vacations} setVacations={setVacations} user={user} />} />
       <Route path = '/following' render={() => <Following followingCompanies={followingCompanies} />} />

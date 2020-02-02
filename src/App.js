@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Route from 'react-router-dom';
 import qs from 'qs';
 import { fetchUser, fetchNotes, fetchVacations, fetchFollowingCompanies } from './api';
 import Header from './Header';
@@ -9,10 +10,7 @@ import Following from './Following';
 
 
 function App() {
-  const getHash = () => {
-    return qs.parse(window.location.hash.slice(1))
-  }
-
+ 
   const [user, setUser] = useState({}); 
   const [notes, setNotes] = useState([]);
   const [vacations, setVacations] = useState([]);
@@ -25,15 +23,6 @@ function App() {
     fetchUser()
       .then(user => setUser(user));
   }
-
-
-  useEffect(() => {
-    window.addEventListener('hashchange', () => {
-      setParams(qs.parse(getHash()));
-    })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
 
   useEffect(() => {
     fetchUser()
@@ -59,10 +48,10 @@ function App() {
   return (
     <div className="App">
       <Header user={user} changeUser={changeUser} />
-      {(!params.view || params.view === '') && <Circles params={params} notes={notes} vacations={vacations} followingCompanies={followingCompanies} />}
-      {params.view === 'notes' && <Notes notes={notes} />}
-      {params.view === 'vacations' && <Vacations vacations={vacations} setVacations={setVacations} user={user} />} 
-      {params.view === 'following' && <Following followingCompanies={followingCompanies} />}
+      <Route path = '/circles' exact render={() => <Circles params={params} notes={notes} vacations={vacations} followingCompanies={followingCompanies}/>} />
+      <Route path ='/notes' render={() => <Notes notes={notes} /> }/>
+      <Route path = '/vacations' render={() => <Vacations vacations={vacations} setVacations={setVacations} user={user} />} />
+      <Route path = '/following' render={() => <Following followingCompanies={followingCompanies} />} />
     </div>
   );
 }
